@@ -1,0 +1,38 @@
+.form-main  {
+    width: 200px;
+    height: 100%;
+    margin: 0 auto;
+    border: 1px solid black;
+    padding:30px
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.form-group .form-label {
+    display: block;
+    margin-bottom: 5px;
+   color: black !important;
+    
+}
+
+.form-group input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+  }
+  
+.form-group.invalid .form-message {
+    color: #f33a58;
+  }
+  
+
+  .form-control {
+    border: 1px solid #b3b3b3;
+ 
+}

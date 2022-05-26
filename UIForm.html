@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Form.css">
+</head>
+<body>
+    <p class="title"> Học lập trình tại F8</p>
+    <div class="form-main">
+        <form action="" method="post" class="form" id="form-1">
+            <div class="form-group">
+                <label for="fullname"  class="form-label"> Tên đầy đủ </label>
+                <input name="fullName" type="text" placeholder="Nhập tên của bạn " id="fullName"   class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="email"  class="form-label"> Email của bạn </label>
+                <input name="email" type="text" placeholder="nguyen@gmail.com " id="email"  class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password"  class="form-label"> Mật khẩu của bạn  </label>
+                <input name="password" type="password" placeholder="Nhập mật khẩu của bạn " id="password"  class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="re-password"  class="form-label"> Nhập lại mật khẩu </label>
+                <input name="rePassword " type="password" placeholder="Nhập lại mật khẩu của bạn " id="re-password"  class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <button class="submit"> Đăng ký </button>
+        </form> 
+    </div>
+    <script src="Form.js"></script>
+  
+    <script>
+        Validator(
+            {   
+                    form: "#form-1",
+                    errorSelector: ".form-message",
+                    rules :[ 
+                        Validator.isRequired("#fullName","Vui lòng nhập tên đầy đủ"),
+                        Validator.isRequired("#email"),
+                        Validator.isEmail("#email"),
+                        Validator.minLength("#password",6,"Bạn phải nhập mật khẩu"),
+                        Validator.isRequired("#re-password"),
+                        Validator.isRePassword("#re-password",function(){
+                            return document.querySelector("#form-1 #password").value
+                        },"Mật khẩu nhập lại không chính xác")
+                    ], onSubmit : function(data) {
+                        console.log(data)
+                    }
+            });
+    </script>
+</body>
+</html>
