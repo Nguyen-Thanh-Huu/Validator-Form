@@ -1,4 +1,14 @@
 function Validator(options) {
+
+  // lay ra element cha cua formMessage
+  function getParentElement(element,selector) {
+    while (element.parentElement) {
+      if (element.parentElement.matches(selector) ) {
+        return element.parentElement;
+      }
+      element = element.parentElement;
+    }
+  }
   // lấy element của form
   var formElement = document.querySelector(options.form);
 
@@ -21,7 +31,8 @@ function Validator(options) {
         if(typeof options.onSubmit === 'function') {
             var enableInput = formElement.querySelectorAll('[name]');
              var formValue = Array.from(enableInput).reduce(function (values,input) {
-               return (values[input.name] = input.value) && values;
+              values[input.name] = input.value;
+               return  values;
              },{})
             options.onSubmit(formValue)
         }
@@ -55,9 +66,9 @@ function Validator(options) {
       // xử lí khi nhập vào input
       inputElement.oninput = function () {
         var errorElement =
-          inputElement.parentElement.querySelector(".form-message");
+        getParentElement(inputElement,options.formGroupSelector).querySelector(".form-message");
         errorElement.innerText = " ";
-        inputElement.parentElement.classList.remove("invalid");
+        getParentElement(inputElement,options.formGroupSelector).classList.remove("invalid");
       };
     });
 
@@ -66,7 +77,7 @@ function Validator(options) {
 
   // ham thuc hien validate
   function Validate(inputElement, rule) {
-    var errorElement = inputElement.parentElement.querySelector(
+    var errorElement = getParentElement(inputElement,options.formGroupSelector).querySelector(
       options.errorSelector
     );
     var errorMessage;
@@ -81,10 +92,10 @@ function Validator(options) {
 
     if (errorMessage) {
       errorElement.innerText = errorMessage;
-      inputElement.parentElement.classList.add("invalid");
+      getParentElement(inputElement,options.formGroupSelector).classList.add("invalid");
     } else {
       errorElement.innerText = "";
-      inputElement.parentElement.classList.remove("invalid");
+      getParentElement(inputElement,options.formGroupSelector).classList.remove("invalid");
     }
 
     return !errorMessage;   
